@@ -2,8 +2,7 @@ package ua.hubanov;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjuster;
-import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -21,7 +20,8 @@ public class App {
     public static void main(String[] args) {
 //        fridays13().forEach(System.out::println);
 //        endOnSundays().forEach(System.out::println);
-        birthdaysOnSaturdays(LocalDate.of(1992,4,30)).forEach(System.out::println);
+//        birthdaysOnSaturdays(LocalDate.of(1992,4,30)).forEach(System.out::println);
+        daysNotWith24Hours(Year.of(2001)).forEach(System.out::println);
     }
 
     // Task 1
@@ -69,6 +69,26 @@ public class App {
                 result.add(Year.from(iterationDate));
             }
             iterationDate = iterationDate.plusYears(1);
+        }
+
+        return result;
+    }
+
+    // Task 4
+    public static List<MonthDay> daysNotWith24Hours(Year year) {
+        return daysNotWith24Hours(year, ZoneId.systemDefault());
+    }
+
+    // Task 4
+    public static List<MonthDay> daysNotWith24Hours(Year year, ZoneId zoneId) {
+        List<MonthDay> result = new ArrayList<>();
+        ZonedDateTime iterationDate = ZonedDateTime.of(LocalDateTime.of(year.get(ChronoField.YEAR), 1, 1, 0, 0), zoneId);
+
+        for (int i = 1; i < year.length(); i++) {
+            if (ChronoUnit.HOURS.between(iterationDate, iterationDate.plusDays(1)) != 24) {
+                result.add(MonthDay.from(iterationDate));
+            }
+            iterationDate = iterationDate.plusDays(1);
         }
 
         return result;
