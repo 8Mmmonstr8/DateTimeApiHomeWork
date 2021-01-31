@@ -1,8 +1,6 @@
 package ua.hubanov;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.YearMonth;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
@@ -22,7 +20,8 @@ public class App {
 
     public static void main(String[] args) {
 //        fridays13().forEach(System.out::println);
-        endOnSundays().forEach(System.out::println);
+//        endOnSundays().forEach(System.out::println);
+        birthdaysOnSaturdays(LocalDate.of(1992,4,30)).forEach(System.out::println);
     }
 
     // Task 1
@@ -54,6 +53,22 @@ public class App {
                 result.add(YearMonth.from(iterationDate));
             }
             iterationDate = iterationDate.plusMonths(1);
+        }
+
+        return result;
+    }
+
+    // Task 3
+    public static List<Year> birthdaysOnSaturdays(LocalDate birthday) {
+        List<Year> result = new ArrayList<>();
+        LocalDate iterationDate = startOfYear2000;
+        MonthDay birthdayMonthAndDay = MonthDay.from(birthday);
+
+        while (iterationDate.isBefore(today)) {
+            if (birthdayMonthAndDay.atYear(iterationDate.getYear()).getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+                result.add(Year.from(iterationDate));
+            }
+            iterationDate = iterationDate.plusYears(1);
         }
 
         return result;
