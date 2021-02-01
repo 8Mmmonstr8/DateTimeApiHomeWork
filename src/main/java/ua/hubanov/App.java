@@ -24,10 +24,10 @@ public class App {
 //        fridays13().forEach(System.out::println);
 //        endOnSundays().forEach(System.out::println);
 //        birthdaysOnSaturdays(LocalDate.of(1992,4,30)).forEach(System.out::println);
-//        daysNotWith24Hours(Year.of(2001)).forEach(System.out::println);
+        daysNotWith24Hours(Year.of(2000), ZoneId.of("Africa/Nairobi")).forEach(System.out::println);
 //        System.out.println(countYearsWhenClockShifted(ZoneId.of("Africa/Nairobi")));
 //        System.out.println(yearsFrom1900ToNowCount);
-        zonesChangedClockShiftRules(getAllAvailableZoneIds()).forEach(x -> System.out.println(x.toString()));
+//        zonesChangedClockShiftRules(getAllAvailableZoneIds()).forEach(x -> System.out.println(x.toString()));
     }
 
     // Task 1
